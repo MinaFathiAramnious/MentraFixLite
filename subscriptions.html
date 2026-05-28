@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0F172A">
+    <title>MentraFix Lite - بوابة الدخول والتأسيس</title>
+    <link rel="icon" href="assets/logo.png">
+    <!-- تحسين التحميل -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- React, ReactDOM, Babel & Dexie -->
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dexie/3.2.4/dexie.min.js"></script>
+    
+    <!-- ملف قاعدة البيانات الخاص بمركز الصيانة -->
+    <script src="database.js"></script>
+
+    <style>
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background: #0F172A; 
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* تأثيرات الخلفية المتحركة (ألوان الطاقة) */
+        .bg-shapes { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+        .shape { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.2; animation: float 20s infinite alternate; }
+        .shape-1 { background: #06B6D4; width: 400px; height: 400px; top: -100px; right: -100px; }
+        .shape-2 { background: #3B82F6; width: 300px; height: 300px; bottom: -50px; left: -50px; animation-delay: -5s; }
+        
+        @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-30px, 50px) scale(1.1); } }
+
+        /* تخصيص حقول الإدخال */
+        .input-group { position: relative; transition: all 0.3s ease; }
+        .input-field {
+            width: 100%; padding: 1rem 1rem 1rem 3rem; border-radius: 1rem;
+            border: 2px solid #E2E8F0; background: #F8FAFC; outline: none;
+            color: #1E293B; font-weight: 700; transition: all 0.3s ease;
+        }
+        .input-field:focus { border-color: #06B6D4; background: #FFFFFF; box-shadow: 0 4px 20px rgba(6, 182, 212, 0.15); }
+        .input-icon { position: absolute; top: 50%; left: 1.25rem; transform: translateY(-50%); color: #94A3B8; transition: all 0.3s ease; }
+        .input-field:focus ~ .input-icon { color: #06B6D4; }
+        
+        ::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+	    <a href="index.html" class="absolute top-6 left-6 z-50 flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm font-bold bg-white/5 hover:bg-white/10 px-4 py-2 rounded-xl backdrop-blur-sm border border-white/10">
+        <i class="fas fa-arrow-left"></i> الرئيسية
+    </a>
+
+    <!-- شاشة تحميل سريعة تظهر فوراً -->
+    <style>
+        #sub-loader {
+            position:fixed;inset:0;background:#0F172A;
+            display:flex;flex-direction:column;align-items:center;justify-content:center;
+            z-index:9999;transition:opacity 0.4s ease;
+        }
+        #sub-loader.hidden{opacity:0;pointer-events:none;}
+        .sub-spinner{width:48px;height:48px;border:4px solid rgba(255,255,255,0.1);border-top-color:#06B6D4;border-radius:50%;animation:spin2 0.8s linear infinite;}
+        @keyframes spin2{to{transform:rotate(360deg);}}
+    </style>
+    <div id="sub-loader">
+        <div style="width:56px;height:56px;background:linear-gradient(135deg,#06B6D4,#3B82F6);border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 8px 25px rgba(6,182,212,0.4)">
+            <i class="fas fa-tools text-white text-2xl"></i>
+        </div>
+        <div class="sub-spinner"></div>
+        <p style="margin-top:14px;font-family:system-ui,sans-serif;font-weight:700;color:#94A3B8;font-size:13px">تحميل نظام الصيانة...</p>
+    </div>
+    
+    <script>
+        var subLoader = document.getElementById("sub-loader");
+        document.addEventListener("DOMContentLoaded", function() {
+            var root = document.getElementById("root");
+            if (!root) return;
+            var subObs = new MutationObserver(function(){
+                if(root.children.length > 0){
+                    subLoader.classList.add("hidden");
+                    setTimeout(function(){subLoader.remove();},500);
+                    subObs.disconnect();
+                }
+            });
+            subObs.observe(root, {childList:true});
+        });
+    </script>
+    
+    <div id="root" class="relative z-10 flex items-center justify-center min-h-screen p-4 sm:p-6"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        function SubscriptionsApp() {
+            const [isChecking, setIsChecking] = useState(true);
+            const [activeTab, setActiveTab] = useState('login'); 
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState('');
+            const [showPassword, setShowPassword] = useState(false);
+            
+            const [availableCenters, setAvailableCenters] = useState([]);
+            const [selectedDbForLogin, setSelectedDbForLogin] = useState('');
+
+            // حالات تسجيل الدخول السريع
+            const [savedUsers, setSavedUsers] = useState([]);
+            const [selectedSavedUser, setSelectedSavedUser] = useState(null);
+            const [fastLoginPassword, setFastLoginPassword] = useState('');
+
+            const [formData, setFormData] = useState({
+                centerName: '', ownerName: '', phone: '', password: ''
+            });
+
+            useEffect(() => {
+                const initApp = async () => {
+                    try {
+                        // استخدام مفتاح الجلسة الخاص بنظام الصيانة
+                        const activeSession = localStorage.getItem('MentraFix_Session');
+                        if (activeSession) {
+                            window.location.replace('dashboard.html');
+                            return;
+                        }
+
+                        // جلب كل المراكز المسجلة على الجهاز من قاعدة البيانات الرئيسية
+                        await window.masterDb.open();
+                        const centersList = await window.masterDb.centers.toArray();
+                        setAvailableCenters(centersList);
+
+                        if (centersList.length > 0) {
+                            setSelectedDbForLogin(centersList[0].dbName);
+                            
+                            // تجهيز الدخول السريع
+                            let allUsers = [];
+                            for (let center of centersList) {
+                                await window.initCenterDB(center.dbName);
+                                const users = await window.db.users.toArray();
+                                users.forEach(u => allUsers.push({ ...u, center_name: center.centerName, dbName: center.dbName }));
+                            }
+
+                            if (allUsers.length > 0) {
+                                setSavedUsers(allUsers);
+                                const lastUserId = localStorage.getItem('MentraFix_LastUserID');
+                                const defaultUser = allUsers.find(u => u.id == lastUserId) || allUsers[0];
+                                setSelectedSavedUser(defaultUser);
+                                setActiveTab('fast-login');
+                            }
+                        }
+
+                        setTimeout(() => setIsChecking(false), 800);
+                    } catch (err) {
+                        console.error("خطأ في التهيئة:", err);
+                        setIsChecking(false);
+                    }
+                };
+                initApp();
+            }, []);
+
+            const handleChange = (e) => { setFormData({ ...formData, [e.target.name]: e.target.value }); setError(''); };
+
+            // تسجيل الدخول العادي
+            const handleLogin = async (e) => {
+                e.preventDefault();
+                setLoading(true); setError('');
+                try {
+                    const { user, center, dbName } = await window.CenterQueries.login(selectedDbForLogin, formData.phone, formData.password);
+                    
+                    localStorage.setItem('MentraFix_Session', JSON.stringify({
+                        user_id: user.id, center_id: center.id, name: user.name, role: user.role, center_name: center.name, dbName: dbName
+                    }));
+                    localStorage.setItem('MentraFix_LastUserID', user.id);
+                    window.location.replace('dashboard.html');
+                } catch (err) { setError(err.message || "حدث خطأ غير متوقع"); setLoading(false); }
+            };
+
+            // الدخول السريع
+            const handleFastLogin = async (e) => {
+                e.preventDefault();
+                if (!selectedSavedUser) return;
+                if (!fastLoginPassword) { setError("الرجاء إدخال كلمة المرور"); return; }
+
+                setLoading(true); setError('');
+                try {
+                    const { user, center, dbName } = await window.CenterQueries.login(selectedSavedUser.dbName, selectedSavedUser.phone, fastLoginPassword);
+                    
+                    localStorage.setItem('MentraFix_Session', JSON.stringify({
+                        user_id: user.id, center_id: center.id, name: user.name, role: user.role, center_name: center.name, dbName: dbName
+                    }));
+                    localStorage.setItem('MentraFix_LastUserID', user.id);
+                    window.location.replace('dashboard.html');
+                } catch (err) { setError(err.message || "كلمة المرور غير صحيحة"); setLoading(false); }
+            };
+
+            // تأسيس مركز جديد
+            const handleRegister = async (e) => {
+                e.preventDefault();
+                setLoading(true); setError('');
+                try {
+                    const { centerId, userId, dbName } = await window.CenterQueries.createCenter(
+                        formData.centerName, formData.ownerName, formData.phone, formData.password
+                    );
+
+                    localStorage.setItem('MentraFix_Session', JSON.stringify({
+                        user_id: userId, center_id: centerId, name: formData.ownerName, role: 'admin', center_name: formData.centerName, dbName: dbName
+                    }));
+                    localStorage.setItem('MentraFix_LastUserID', userId);
+                    window.location.replace('dashboard.html');
+                } catch (err) { setError(err.message || "حدث خطأ غير متوقع"); setLoading(false); }
+            };
+
+            if (isChecking) return <div className="flex flex-col items-center justify-center fade-up"><div className="w-20 h-20 bg-gradient-to-br from-[#06B6D4] to-[#3B82F6] rounded-2xl flex items-center justify-center text-white text-4xl shadow-lg animate-pulse mb-6"><i className="fas fa-tools"></i></div><h2 className="text-2xl font-black text-white">جاري الفحص...</h2></div>;
+
+            return (
+                <div className="w-full max-w-[420px] fade-up">
+                    <div className="text-center mb-8">
+                        <div className="w-16 h-16 bg-gradient-to-br from-[#06B6D4] to-[#3B82F6] mx-auto rounded-2xl flex items-center justify-center text-white text-3xl shadow-lg mb-4"><i className="fas fa-tools"></i></div>
+                        <h1 className="text-4xl font-black text-white tracking-tight mb-1">Mentra<span className="text-[#06B6D4]">FixLite</span></h1>
+                        <p className="text-slate-400 font-bold text-sm">نظام الإدارة الذكي لمراكز الصيانة</p>
+                    </div>
+
+                    <div className="bg-white rounded-[2rem] shadow-2xl overflow-hidden relative border border-slate-100">
+                        {activeTab !== 'fast-login' && (
+                            <div className="flex p-2 bg-slate-50 border-b border-slate-100">
+                                <button onClick={() => {setActiveTab('login'); setError('');}} className={`flex-1 py-3 text-sm font-black rounded-xl transition-all ${activeTab === 'login' ? 'bg-white text-[#06B6D4] shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>تسجيل الدخول</button>
+                                <button onClick={() => {setActiveTab('register'); setError('');}} className={`flex-1 py-3 text-sm font-black rounded-xl transition-all ${activeTab === 'register' ? 'bg-white text-[#06B6D4] shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>تأسيس مركز جديد</button>
+                            </div>
+                        )}
+
+                        <div className="p-6 sm:p-8">
+                            {error && <div className="bg-rose-50 border border-rose-200 text-rose-600 p-4 rounded-2xl text-xs font-bold mb-6 flex items-start gap-3 fade-up"><i className="fas fa-exclamation-circle text-lg mt-0.5"></i><span>{error}</span></div>}
+
+                            {/* دخول سريع */}
+                            {activeTab === 'fast-login' && selectedSavedUser && (
+                                <form onSubmit={handleFastLogin} className="text-center fade-up space-y-5">
+                                    {savedUsers.length > 1 && (
+                                        <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-2 mb-2 justify-center">
+                                            {savedUsers.map(u => (
+                                                <button key={u.id + u.dbName} type="button" onClick={() => { setSelectedSavedUser(u); setFastLoginPassword(''); setError(''); }} className={`p-2 rounded-2xl border-2 transition-all shrink-0 w-20 flex flex-col items-center ${selectedSavedUser.dbName === u.dbName && selectedSavedUser.id === u.id ? 'border-[#06B6D4] bg-cyan-50/50 scale-105' : 'border-slate-100 bg-white opacity-60 hover:opacity-100'}`}>
+                                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-black mb-1.5 transition-colors ${selectedSavedUser.dbName === u.dbName && selectedSavedUser.id === u.id ? 'bg-[#06B6D4] text-white' : 'bg-slate-200 text-slate-500'}`}>{u.name.charAt(0)}</div>
+                                                    <p className="text-[9px] font-bold text-slate-700 whitespace-nowrap truncate w-full px-1">{u.name.split(' ')[0]}</p>
+                                                    <p className="text-[8px] font-bold text-slate-400 truncate w-full mt-1">{u.center_name}</p>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+                                    <div className="mb-2">
+                                        <h2 className="text-xl font-black text-slate-800">مرحباً باشمهندس، {selectedSavedUser.name.split(' ')[0]}</h2>
+                                        <p className="text-sm font-bold text-[#3B82F6] mt-1"><i className="fas fa-store mr-1"></i> {selectedSavedUser.center_name}</p>
+                                    </div>
+                                    <div className="input-group relative text-right">
+                                        <input type={showPassword ? "text" : "password"} value={fastLoginPassword} onChange={(e) => setFastLoginPassword(e.target.value)} required dir="ltr" className="input-field text-left placeholder:text-right pr-12" placeholder="كلمة المرور" />
+                                        <i className="fas fa-lock input-icon"></i>
+                                    </div>
+                                    <button type="submit" disabled={loading} className="w-full bg-gradient-to-l from-[#06B6D4] to-[#3B82F6] hover:opacity-90 text-white font-black py-4 rounded-2xl shadow-lg transition-all flex justify-center items-center gap-2 text-lg">فتح النظام</button>
+                                    <button type="button" onClick={() => setActiveTab('login')} className="w-full text-slate-500 hover:text-slate-800 font-bold text-sm mt-2 pb-2">الدخول بحساب مختلف</button>
+                                </form>
+                            )}
+
+                            {/* تسجيل الدخول العادي */}
+                            {activeTab === 'login' && (
+                                <form onSubmit={handleLogin} className="space-y-5 fade-up">
+                                    {availableCenters.length > 0 ? (
+                                        <div className="input-group">
+                                            <select value={selectedDbForLogin} onChange={(e) => setSelectedDbForLogin(e.target.value)} className="input-field pr-12 appearance-none cursor-pointer text-slate-700 font-bold" required>
+                                                {availableCenters.map(c => <option key={c.dbName} value={c.dbName}>{c.centerName}</option>)}
+                                            </select>
+                                            <i className="fas fa-store input-icon"></i>
+                                            <i className="fas fa-chevron-down absolute top-1/2 right-4 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+                                        </div>
+                                    ) : (
+                                        <div className="text-center p-3 bg-cyan-50 text-cyan-700 rounded-xl text-xs font-bold border border-cyan-100">لا يوجد مراكز صيانة مسجلة على هذا الجهاز، قم بالتأسيس أولاً.</div>
+                                    )}
+                                    <div className="input-group">
+                                        <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required dir="ltr" className="input-field text-left placeholder:text-right" placeholder="رقم الهاتف" disabled={availableCenters.length === 0} />
+                                        <i className="fas fa-phone input-icon"></i>
+                                    </div>
+                                    <div className="input-group relative">
+                                        <input type={showPassword ? "text" : "password"} name="password" value={formData.password} onChange={handleChange} required dir="ltr" className="input-field text-left placeholder:text-right pr-12" placeholder="كلمة المرور" disabled={availableCenters.length === 0} />
+                                        <i className="fas fa-lock input-icon"></i>
+                                    </div>
+                                    <button type="submit" disabled={loading || availableCenters.length === 0} className="w-full bg-gradient-to-l from-[#06B6D4] to-[#3B82F6] text-white font-black py-4 rounded-2xl shadow-lg mt-2 flex justify-center items-center gap-2 disabled:opacity-70 text-lg hover:scale-[1.02] transition-transform">دخول</button>
+                                    {savedUsers.length > 0 && <button type="button" onClick={() => setActiveTab('fast-login')} className="w-full text-center text-slate-500 hover:text-slate-800 font-bold text-sm pt-2">العودة لقائمة الحسابات المحفوظة</button>}
+                                </form>
+                            )}
+
+                            {/* التأسيس */}
+                            {activeTab === 'register' && (
+                                <form onSubmit={handleRegister} className="space-y-4 fade-up">
+                                    <div className="input-group"><input type="text" name="centerName" value={formData.centerName} onChange={handleChange} required className="input-field pr-4" placeholder="اسم مركز الصيانة" /><i className="fas fa-store input-icon"></i></div>
+                                    <div className="input-group"><input type="text" name="ownerName" value={formData.ownerName} onChange={handleChange} required className="input-field pr-4" placeholder="اسم مدير المركز (المالك)" /><i className="fas fa-user-tie input-icon"></i></div>
+                                    <div className="input-group"><input type="tel" name="phone" value={formData.phone} onChange={handleChange} required dir="ltr" className="input-field text-left placeholder:text-right" placeholder="رقم الهاتف (للدخول)" /><i className="fas fa-phone input-icon"></i></div>
+                                    <div className="input-group relative"><input type={showPassword ? "text" : "password"} name="password" value={formData.password} onChange={handleChange} required dir="ltr" className="input-field text-left placeholder:text-right pr-12" placeholder="كلمة المرور" /><i className="fas fa-lock input-icon"></i></div>
+                                    <button type="submit" disabled={loading} className="w-full bg-gradient-to-l from-[#06B6D4] to-[#3B82F6] hover:opacity-90 transition-opacity text-white font-black py-4 rounded-2xl shadow-lg mt-2 text-lg">تأسيس المركز الآن</button>
+                                </form>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+        
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<SubscriptionsApp />);
+    </script>
+</body>
+</html>

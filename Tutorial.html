@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#06B6D4">
+    <title>MentraFix Lite | دليل الاستخدام خطوة بخطوة</title>
+
+    <!-- الخطوط والأيقونات -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #F8FAFC; overflow-x: hidden; }
+        .text-navy { color: #0F172A; }
+        
+        /* تأثيرات الظهور عند التمرير (Scroll Animation) */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        /* تدرج الهيدر */
+        .hero-bg { background: linear-gradient(135deg, #0F172A 0%, #0B1120 100%); }
+        
+        /* تحسينات الصور */
+        .tutorial-img { box-shadow: 0 20px 40px -10px rgba(6,182,212,0.15); border: 4px solid #fff; }
+    </style>
+</head>
+<body class="text-slate-800 pb-20">
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <!-- الشعار -->
+                <a href="index.html" class="flex items-center gap-2 cursor-pointer hover:opacity-80 transition">
+                    <div class="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-gradient-to-br from-[#06B6D4] to-[#3B82F6] flex items-center justify-center text-white shadow-lg">
+                        <i class="fas fa-tools text-sm md:text-xl"></i>
+                    </div>
+                    <span class="font-black text-lg md:text-2xl text-navy">Mentra<span class="text-[#06B6D4]">FixLite</span></span>
+                </a>
+
+                <!-- أزرار التنقل -->
+                <div class="flex items-center gap-2 md:gap-4">
+                    <a href="index.html" class="hidden md:flex items-center gap-2 text-slate-500 font-bold hover:text-cyan-600 transition px-3 py-2">
+                        <i class="fas fa-home"></i> الرئيسية
+                    </a>
+                    <a href="subscriptions.html" class="bg-gradient-to-l from-[#06B6D4] to-[#3B82F6] hover:opacity-90 text-white px-5 py-2.5 rounded-xl font-bold transition shadow-lg shadow-cyan-500/30 flex items-center gap-2 text-sm md:text-base">
+                        <i class="fas fa-bolt"></i> افتح النظام 
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero-bg pt-32 pb-20 md:pt-40 md:pb-28 text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-30"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4">
+            <span class="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 px-4 py-1.5 rounded-full text-sm font-bold tracking-widest mb-6 inline-block">دليل الاستخدام الشامل</span>
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
+                تعلم كيف تدير مركزك <br><span class="text-[#06B6D4]">بكل احترافية وسهولة</span>
+            </h1>
+            <p class="text-slate-300 text-base md:text-lg font-semibold max-w-2xl mx-auto">
+                هذا الدليل سيأخذك في جولة سريعة ومصورة لشرح جميع شاشات ووظائف نظام MentraFix Lite لتبدأ العمل فوراً بدون أي تعقيدات.
+            </p>
+        </div>
+    </section>
+
+    <!-- ================= TUTORIAL STEPS ================= -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
+
+        <!-- Step 0: Start (Subscriptions) -->
+        <div class="reveal flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+            <div class="w-full lg:w-1/2">
+                <div class="bg-cyan-50 text-cyan-600 font-black px-3 py-1 rounded-lg inline-block mb-3 text-sm border border-cyan-100">البداية</div>
+                <h2 class="text-2xl md:text-3xl font-black text-navy mb-4"><i class="fas fa-sign-in-alt text-[#06B6D4] ml-2"></i> شاشة التأسيس وتسجيل الدخول</h2>
+                <p class="text-slate-600 font-semibold mb-6 leading-relaxed">
+                    من خلال هذه الشاشة يمكنك <strong>"تأسيس مركز جديد"</strong> بإنشاء قاعدة بياناتك الخاصة لأول مرة، وإدخال اسم المركز ومديره وكلمة المرور. <br>
+                    وبعد التأسيس، ستتمكن دائماً من الدخول السريع للنظام بضغطة واحدة وكتابة الباسورد فقط.
+                </p>
+                <ul class="space-y-2 text-sm font-bold text-slate-700">
+                    <li><i class="fas fa-check text-emerald-500 ml-2"></i> يتم حفظ البيانات محلياً على المتصفح.</li>
+                    <li><i class="fas fa-check text-emerald-500 ml-2"></i> يمكنك إضافة أكثر من مركز على نفس الجهاز.</li>
+                </ul>
+            </div>
+            <div class="w-full lg:w-1/2">
+                <div class="rounded-2xl overflow-hidden tutorial-img group bg-slate-100 aspect-[4/3] flex items-center justify-center relative">
+                    <img src="assets/start.PNG" alt="شاشة تسجيل الدخول" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/800x600/e2e8f0/64748b?text=Image+start.PNG+Missing'">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1: Main Dashboard -->
+        <div class="reveal flex flex-col lg:flex-row-reverse items-center gap-8 lg:gap-12">
+            <div class="w-full lg:w-1/2">
+                <div class="bg-blue-50 text-blue-600 font-black px-3 py-1 rounded-lg inline-block mb-3 text-sm border border-blue-100">الخطوة 1</div>
+                <h2 class="text-2xl md:text-3xl font-black text-navy mb-4"><i class="fas fa-chart-pie text-blue-500 ml-2"></i> اللوحة الرئيسية (الداشبورد)</h2>
+                <p class="text-slate-600 font-semibold mb-6 leading-relaxed">
+                    بمجرد الدخول، ستستقبلك لوحة التحكم الرئيسية. وهي تمنحك نظرة طائر سريعة على <strong>حالة المركز اليوم</strong>.
+                </p>
+                <ul class="space-y-2 text-sm font-bold text-slate-700">
+                    <li><i class="fas fa-check text-emerald-500 ml-2"></i> إحصائيات سريعة (الأرباح، الأوامر النشطة، المكتملة).</li>
+                    <li><i class="fas fa-check text-emerald-500 ml-2"></i> جدول يعرض أحدث أوامر الشغل التي تم استلامها وحالتها الحالية.</li>
+                    <li><i class="fas fa-check text-emerald-500 ml-2"></i> أزرار اختصار لإنشاء أمر شغل أو فاتورة بضغطة واحدة.</li>
+                </ul>
+            </div>
+            <div class="w-full lg:w-1/2">
+                <div class="rounded-2xl overflow-hidden tutorial-img group bg-slate-100 aspect-[4/3] flex items-center justify-center relative">
+                    <img src="assets/step1.PNG" alt="شاشة الداشبورد" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/800x600/e2e8f0/64748b?text=Image+step1.PNG+Missing'">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Customers -->
+        <div class="reveal flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+            <div class="w-full lg:w-1/2">
+                <div class="bg-purple-50 text-purple-600 font-black px-3 py-1 rounded-lg inline-block mb-3 text-sm border border-purple-100">الخطوة 2</div>
+                <h2 class="text-2xl md:text-3xl font-black text-navy mb-4"><i class="fas fa-users text-purple-500 ml-2"></i> العملاء والأجهزة</h2>
+                <p class="text-slate-600 font-semibold mb-6 leading-relaxed">
+                    من هنا تبدأ دورة العمل. قم بتسجيل بيانات عملائك وأرقام هواتفهم. كما يمكنك من نفس الشاشة إضافة <strong>الأجهزة</strong> المرتبطة بكل عميل (نوع الجهاز، الماركة، السيريال نمبر).
+                </p>
+                <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl text-sm font-bold text-slate-600">
+                    <i class="fas fa-lightbulb text-amber-500 ml-1"></i> نصيحة: تسجيل العميل وجهازه مسبقاً يجعل فتح أمر شغل له لاحقاً أسرع بكثير!
+                </div>
+            </div>
+            <div class="w-full lg:w-1/2">
+                <div class="rounded-2xl overflow-hidden tutorial-img group bg-slate-100 aspect-[4/3] flex items-center justify-center relative">
+                    <img src="assets/step2.PNG" alt="شاشة العملاء" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/800x600/e2e8f0/64748b?text=Image+step2.PNG+Missing'">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Purchases and Stock -->
+        <div class="reveal flex flex-col lg:flex-row-reverse items-center gap-8 lg:gap-12">
+            <div class="w-full lg:w-1/2">
+                <div class="bg-orange-50 text-orange-600 font-black px-3 py-1 rounded-lg inline-block mb-3 text-sm border border-orange-100">الخطوة 3</div>
+                <h2 class="text-2xl md:text-3xl font-black text-navy mb-4"><i class="fas fa-truck-loading text-orange-500 ml-2"></i> المشتريات وحركة المخزن</h2>
+                <p class="text-slate-600 font-semibold mb-6 leading-relaxed">
+                    قبل البدء بالصيانة، يجب أن يكون لديك قطع غيار! من هذه الشاشة يمكنك تسجيل فواتير شرائك من الموردين، وإدخال <strong>البضاعة الجديدة للمخزن</strong>، مع تحديد أسعار الشراء والبيع لتلك القطع.
+                </p>
+            </div>
+            <div class="w-full lg:w-1/2">
+                <div class="rounded-2xl overflow-hidden tutorial-img group bg-slate-100 aspect-[4/3] flex items-center justify-center relative">
+                    <img src="assets/step3.PNG" alt="شاشة المشتريات" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/800x600/e2e8f0/64748b?text=Image+step3.PNG+Missing'">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Maintenance Requests -->
+        <div class="reveal flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+            <div class="w-full lg:w-1/2">
+                <div class="bg-rose-50 text-rose-600 font-black px-3 py-1 rounded-lg inline-block mb-3 text-sm border border-rose-100">الخطوة 4</div>
+                <h2 class="text-2xl md:text-3xl font-black text-navy mb-4"><i class="fas fa-tools text-rose-500 ml-2"></i> ورشة الصيانة (أوامر الشغل)</h2>
+                <p class="text-slate-600 font-semibold mb-6 leading-relaxed">
+                    هذا هو <strong>قلب النظام النابض</strong>. هنا تقوم باستلام الأجهزة المعطلة وفتح "تيكت صيانة" لها مع كتابة الشكوى.
+                </p>
+                <ul class="space-y-2 text-sm font-bold text-slate-700">
+                    <li><i class="fas fa-check text-emerald-500 ml-2"></i> تحديث حالة الجهاز (قيد الفحص، جاري الصيانة، مكتمل).</li>
+                    <li><i class="fas fa-check text-emerald-500 ml-2"></i> إضافة قطع الغيار المستخدمة (تُخصم من المخزن تلقائياً).</li>
+                    <li><i class="fas fa-check text-emerald-500 ml-2"></i> إصدار فاتورة للعميل بعد إتمام العمل.</li>
+                </ul>
+            </div>
+            <div class="w-full lg:w-1/2">
+                <div class="rounded-2xl overflow-hidden tutorial-img group bg-slate-100 aspect-[4/3] flex items-center justify-center relative">
+                    <img src="assets/step4.PNG" alt="شاشة الورشة" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/800x600/e2e8f0/64748b?text=Image+step4.PNG+Missing'">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: Inventory -->
+        <div class="reveal flex flex-col lg:flex-row-reverse items-center gap-8 lg:gap-12">
+            <div class="w-full lg:w-1/2">
+                <div class="bg-indigo-50 text-indigo-600 font-black px-3 py-1 rounded-lg inline-block mb-3 text-sm border border-indigo-100">الخطوة 5</div>
+                <h2 class="text-2xl md:text-3xl font-black text-navy mb-4"><i class="fas fa-boxes text-indigo-500 ml-2"></i> إدارة المخزن والخدمات</h2>
+                <p class="text-slate-600 font-semibold mb-6 leading-relaxed">
+                    هنا تستطيع الاطلاع على كافة <strong>قطع الغيار الموجودة في المركز وكمياتها الحالية</strong>، لتكتشف النواقص. كما يمكنك من خلال تبويب "دليل الخدمات" إضافة خدمات الصيانة الثابتة وتسعيرها (مثل: تنظيف، فورمات، لحام).
+                </p>
+            </div>
+            <div class="w-full lg:w-1/2">
+                <div class="rounded-2xl overflow-hidden tutorial-img group bg-slate-100 aspect-[4/3] flex items-center justify-center relative">
+                    <img src="assets/step5.PNG" alt="شاشة المخزن" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/800x600/e2e8f0/64748b?text=Image+step5.PNG+Missing'">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 6: Finances -->
+        <div class="reveal flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+            <div class="w-full lg:w-1/2">
+                <div class="bg-emerald-50 text-emerald-600 font-black px-3 py-1 rounded-lg inline-block mb-3 text-sm border border-emerald-100">الخطوة 6</div>
+                <h2 class="text-2xl md:text-3xl font-black text-navy mb-4"><i class="fas fa-file-invoice-dollar text-emerald-500 ml-2"></i> المالية والمصروفات</h2>
+                <p class="text-slate-600 font-semibold mb-6 leading-relaxed">
+                    الجزء الخاص بالمحاسبة! استعرض جميع الفواتير الصادرة للعملاء، وقم <strong>بتحصيل المبالغ</strong> (كاش أو فيزا). كما تستطيع تسجيل المصروفات اليومية للمركز (إيجار، رواتب، كهرباء).
+                </p>
+                <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-sm font-bold text-emerald-700">
+                    <i class="fas fa-sack-dollar ml-1"></i> النظام سيقوم بحساب صافي الربح تلقائياً بخصم المصروفات من الإيرادات المحصلة!
+                </div>
+            </div>
+            <div class="w-full lg:w-1/2">
+                <div class="rounded-2xl overflow-hidden tutorial-img group bg-slate-100 aspect-[4/3] flex items-center justify-center relative">
+                    <img src="assets/step6.PNG" alt="شاشة المالية" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/800x600/e2e8f0/64748b?text=Image+step6.PNG+Missing'">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 7: Backup -->
+        <div class="reveal flex flex-col lg:flex-row-reverse items-center gap-8 lg:gap-12">
+            <div class="w-full lg:w-1/2">
+                <div class="bg-amber-50 text-amber-600 font-black px-3 py-1 rounded-lg inline-block mb-3 text-sm border border-amber-100">أهم خطوة!</div>
+                <h2 class="text-2xl md:text-3xl font-black text-navy mb-4"><i class="fas fa-database text-amber-500 ml-2"></i> النسخ الاحتياطي (Backup)</h2>
+                <p class="text-slate-600 font-semibold mb-6 leading-relaxed">
+                    نظراً لأن نظام Lite يحفظ البيانات <strong>محلياً على جهازك</strong> (لحماية خصوصيتك وعدم استخدام إنترنت)، فإنه من الضروري الدخول لهذه الشاشة يومياً لاستخراج نسخة احتياطية من بياناتك والاحتفاظ بها، لتجنب ضياعها إذا تم مسح المتصفح أو تلف الويندوز.
+                </p>
+            </div>
+            <div class="w-full lg:w-1/2">
+                <div class="rounded-2xl overflow-hidden tutorial-img group bg-slate-100 aspect-[4/3] flex items-center justify-center relative border-amber-200">
+                    <img src="assets/step7.PNG" alt="شاشة النسخ الاحتياطي" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/800x600/e2e8f0/64748b?text=Image+step7.PNG+Missing'">
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ================= CTA / FOOTER ================= -->
+    <section class="max-w-4xl mx-auto px-4 text-center mt-12 mb-20 reveal">
+        <h2 class="text-3xl font-black text-navy mb-6">أنت الآن جاهز لإدارة مركزك بنجاح!</h2>
+        <a href="subscriptions.html" class="inline-flex items-center justify-center gap-3 bg-gradient-to-l from-[#06B6D4] to-[#3B82F6] hover:opacity-90 text-white px-10 py-5 rounded-2xl font-black text-xl transition shadow-[0_10px_30px_rgba(6,182,212,0.3)] active:scale-95">
+            <i class="fas fa-rocket"></i> افتح النظام وابدأ العمل
+        </a>
+    </section>
+
+    <!-- Script for Scroll Animation -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+</html>

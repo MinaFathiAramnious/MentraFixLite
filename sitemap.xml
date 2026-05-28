@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- الصفحة الرئيسية (أهم صفحة) -->
+  <url>
+    <loc>https://minafathiaramnious.github.io/MentraFixLite/</loc>
+    <lastmod>2024-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- صفحة دليل التشغيل (مهمة للكلمات المفتاحية) -->
+  <url>
+    <loc>https://minafathiaramnious.github.io/MentraFixLite/Tutorial.html</loc>
+    <lastmod>2024-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- صفحة تسجيل الدخول / إنشاء المكتب -->
+  <url>
+    <loc>https://minafathiaramnious.github.io/MentraFixLite/subscriptions.html</loc>
+    <lastmod>2024-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>

@@ -1,0 +1,20 @@
+# إعدادات العناكب (Robots.txt) لمشروع MentraGymLite
+
+User-agent: *
+
+# 1. الصفحات المسموح لمحركات البحث بأرشفتها (التسويقية والتعليمية)
+Allow: /
+Allow: /index.html
+Allow: /Tutorial.html
+Allow: /subscriptions.html
+Allow: /assets/
+
+# 2. الصفحات والملفات الممنوع أرشفتها (ملفات النظام ولوحة التحكم)
+# نمنعها لأنها تتطلب تسجيل دخول أو تعمل فقط على جهاز المستخدم
+Disallow: /dashboard.html
+Disallow: /pages/
+Disallow: /database.js
+Disallow: /sw.js
+
+# 3. رابط خريطة الموقع (استبدل الرابط برابط موقعك الحقيقي)
+Sitemap: https://minafathiaramnious.github.io/MentraFixLite/sitemap.xml
